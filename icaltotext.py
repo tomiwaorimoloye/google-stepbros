@@ -63,7 +63,7 @@ class ParseICS:
     def parse(self) -> "list[Course]":
         courses = []
 
-        with open(path) as f:
+        with open(self.path) as f:
             for _ in range(23):
                 next(f)
 
