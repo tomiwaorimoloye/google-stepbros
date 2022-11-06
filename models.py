@@ -1,16 +1,8 @@
-from datetime import datetime
-
-
 class CourseSchedule:
-    def __init__(self, startTime: str, endTime: str, days: set):
-        self.startTime = self.str_to_date(startTime)
-        self.endTime = self.str_to_date(endTime)
+    def __init__(self, startTime, endTime, days: set):
+        self.startTime = startTime
+        self.endTime = endTime
         self.days = days
-
-    # Format -> Canada/Mountain:20220902T140000
-    def str_to_date(self, s: str):
-        t = s.split(":")[1].split("T")[1]
-        return datetime.strptime(t, "%H%M%S")
 
     def __str__(self) -> str:
         string = ", ".join(self.days)
@@ -18,6 +10,23 @@ class CourseSchedule:
         string += f" to {self.endTime.hour}:{self.endTime.minute}"
 
         return string
+
+    @classmethod
+    def fromList(cls, arr: list):
+        return cls(
+            startTime=arr[0]["startTime"],
+            endTime=arr[0]["endTime"],
+            days=set(arr[1])
+        )
+
+    def toList(self):
+        return [
+            {
+                "startTime": self.startTime,
+                "endTime": self.endTime
+            },
+            list(self.days)
+        ]
 
 
 class Course:
@@ -44,6 +53,23 @@ class Course:
 
         return string
 
+    @classmethod
+    def fromDict(cls, d: dict):
+        return cls(
+            title=d["title"],
+            section=d["section"],
+            location=d["location"],
+            sch=CourseSchedule.fromList(d["schedule"])
+        )
+
+    def toDict(self):
+        return {
+            "title": self.title,
+            "section": self.section,
+            "location": self.location,
+            "schedule": self.sch.toList()
+        }
+
 
 class Student:
     faculties = {
@@ -67,10 +93,22 @@ class Student:
         "SS": "St Stephen's College",
     }
 
-    def __init__(self, username: str, courses: "list[Course]", faculty: str):
+    def __init__(self,
+                 username: str, password: str,
+                 courses: "list[Course]",
+                 faculty: str):
         assert len(courses) > 0 and isinstance(courses[0], Course)
         assert len(faculty) == 2, "Invalid faculty"
 
         self.username = username
+        self.password = password
         self.courses = courses
         self.faculty = Student.faculties.get(faculty, "Faculty of Unknown")
+
+    def toDict(self):
+        return {
+            "username": self.username,
+            "password": self.password,
+            "courses": [c.toDict() for c in self.courses],
+            "faculty": self.faculty
+        }

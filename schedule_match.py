@@ -1,5 +1,4 @@
-from icsparser import Student
-from datetime import datetime
+from models import Student
 
 
 class TopNMatches:

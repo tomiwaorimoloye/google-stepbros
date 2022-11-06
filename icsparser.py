@@ -1,3 +1,4 @@
+from datetime import datetime
 from os.path import isfile
 from models import Course
 
@@ -16,6 +17,11 @@ class ParseICS:
 
         self.path = path
 
+    # Format -> Canada/Mountain:20220902T140000
+    def str_to_date(self, s: str):
+        t = s.split(":")[1].split("T")[1]
+        return datetime.strptime(t, "%H%M%S")
+
     def parse(self) -> "list[Course]":
         courses = []
 
@@ -23,9 +29,9 @@ class ParseICS:
             for _ in range(23):
                 next(f)
 
-            dtStart = ""
+            dtStart = None
             summary = ""
-            dtEnd = ""
+            dtEnd = None
             location = ""
             days = set()
 
@@ -33,20 +39,20 @@ class ParseICS:
                 line = line.strip()
 
                 if line == "BEGIN:VEVENT":
-                    dtStart = ""
+                    dtStart = None
                     summary = ""
-                    dtEnd = ""
+                    dtEnd = None
                     location = ""
                     days = set()
                 elif "DTSTART" in line:
                     starting = line.index("=") + 1
-                    dtStart = line[starting:]
+                    dtStart = self.str_to_date(line[starting:])
                 elif "SUMMARY" in line:
                     starting = line.index(":") + 1
                     summary = line[starting:]
                 elif "DTEND" in line:
                     starting = line.index("=") + 1
-                    dtEnd = line[starting:]
+                    dtEnd = self.str_to_date(line[starting:])
                 elif "LOCATION" in line:
                     starting = line.index(":") + 1
                     location = line[starting:]
