@@ -12,38 +12,31 @@ class CourseSchedule:
         return string
 
     @classmethod
-    def fromList(cls, arr: list):
+    def fromDict(cls, d: dict):
         return cls(
-            startTime=arr[0]["startTime"],
-            endTime=arr[0]["endTime"],
-            days=set(arr[1])
+            startTime=d["startTime"],
+            endTime=d["endTime"],
+            days=set(d["days"])
         )
 
-    def toList(self):
-        return [
-            {
-                "startTime": self.startTime,
-                "endTime": self.endTime
-            },
-            list(self.days)
-        ]
+    def toDict(self):
+        return {
+            "startTime": self.startTime,
+            "endTime": self.endTime,
+            "days": list(self.days)
+        }
 
 
 class Course:
     def __init__(self,
-                 summary: str,
+                 title: str,
+                 section: str,
                  location: str,
-                 startTime: str, endTime: str,
-                 days: set):
-        summary = summary.split()
-
-        self.title = " ".join(summary[0:2])
-        self.section = None
+                 sch: CourseSchedule):
+        self.title = title
+        self.section = section
         self.location = location
-        self.sch = CourseSchedule(startTime, endTime, days)
-
-        if len(summary) > 2:
-            self.section = " ".join(summary[2:])
+        self.sch = sch
 
     def __str__(self) -> str:
         string = "Course title: " + self.title
@@ -59,7 +52,7 @@ class Course:
             title=d["title"],
             section=d["section"],
             location=d["location"],
-            sch=CourseSchedule.fromList(d["schedule"])
+            sch=CourseSchedule.fromDict(d["schedule"])
         )
 
     def toDict(self):
@@ -67,7 +60,7 @@ class Course:
             "title": self.title,
             "section": self.section,
             "location": self.location,
-            "schedule": self.sch.toList()
+            "schedule": self.sch.toDict()
         }
 
 
@@ -98,12 +91,21 @@ class Student:
                  courses: "list[Course]",
                  faculty: str):
         assert len(courses) > 0 and isinstance(courses[0], Course)
-        assert len(faculty) == 2, "Invalid faculty"
 
         self.username = username
         self.password = password
         self.courses = courses
-        self.faculty = Student.faculties.get(faculty, "Faculty of Unknown")
+        self.faculty = Student.faculties.get(faculty, "Faculty of Unknown")\
+            if len(faculty) == 2 else faculty
+
+    @classmethod
+    def fromDict(cls, d: dict):
+        return cls(
+            username=d["username"],
+            password=d["password"],
+            courses=[Course.fromDict(c) for c in d["courses"]],
+            faculty=d["faculty"]
+        )
 
     def toDict(self):
         return {

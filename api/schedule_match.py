@@ -7,6 +7,9 @@ class TopNMatches:
                       otherStudents: "list[Student]",
                       n: int):
 
+        if student in otherStudents:
+            otherStudents.remove(student)
+
         possibleMatches = []
 
         studentCourses = student.courses
