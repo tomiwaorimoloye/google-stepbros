@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="icon" sizes="180x180" href="logohacked-removebg-preview (1).jpg">
+    <link href="style.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+</head>
+
+<body>
+    <header>
+        <div class="col-md-4" id="imgdiv">
+            <img id="calenderimg" src="logohacked.png" class="img-fluid" alt="">
+        </div>
+    </header><br>
+    <hr>
+
+    <p>
+    <h2 id="caltitle">You have been Matched!</h2>
+    </p>
+
+    <section>
+        <div id="resultcontainer">
+            <div class="card" id="result">
+                <img src="https://avatars.dicebear.com/api/human/1.svg?background=%230000ff" style="width:100%;">
+                <p id="resultparas1">Username_Placeholder</p>
+                <p id="resultparas1">Faculty_Placeholder</p>
+                <p id="resultparas1">Matches_Placeholder</p>
+            </div>
+
+            <div class="card" id="result">
+                <img src="https://avatars.dicebear.com/api/human/2.svg?background=%635007ff" style="width:100%;">
+                <p id="resultparas2">Username_Placeholder</p>
+                <p id="resultparas2">Faculty_Placeholder</p>
+                <p id="resultparas2">Matches_Placeholder</p>
+            </div>
+        </div>
+    </section>
+
+    <canvas id="my-canvas"></canvas>
+    <script src="index.min.js"></script>
+    <script>
+        var confettiSettings = { target: 'my-canvas' };
+        var confetti = new ConfettiGenerator(confettiSettings);
+        confetti.render();
+    </script>
+
+</body>
