@@ -3,47 +3,46 @@ from firebase_admin import firestore, credentials
 from models import Student
 from icsparser import ParseICS
 
-cred = credentials.Certificate("usocial-b56fa-5d111102e51b.json")
-app = fa.initialize_app(cred)
 
-db = firestore.client()
-studentsCol = db.collection(u"students")
+class FirebaseDB:
+    def __init__(self):
+        cred = credentials.Certificate("usocial-b56fa-5d111102e51b.json")
+        fa.initialize_app(cred)
 
+        db = firestore.client()
+        self.__studentsCol = db.collection(u"students")
 
-def get_student(username):
-    student = studentsCol.document(username).get()
-    if student.exists:
-        return Student.fromDict(student.to_dict())
+    def get_student(self, username):
+        student = self.__studentsCol.document(username).get()
+        if student.exists:
+            return Student.fromDict(student.to_dict())
 
+    def get_students(self) -> "list[Student]":
+        students = []
 
-def get_students():
-    students = []
+        for s in self.__studentsCol.stream():
+            student = s.to_dict()
+            students.append(Student.fromDict(student))
 
-    for s in studentsCol.stream():
-        student = s.to_dict()
-        students.append(Student.fromDict(student))
+        return students
 
-    return students
+    def username_exists(self, username: str) -> bool:
+        exists = True
 
+        students = self.get_students()
+        for s in students:
+            if s.username == username:
+                exists = False
+                break
 
-def username_exists(username: str) -> bool:
-    exists = True
+        return exists
 
-    students = get_students()
-    for s in students:
-        if s.username == username:
-            exists = False
-            break
+    def add_student(self, username: str, pwd: str, icsF: str, faculty: str):
+        if self.username_exists(username):
+            courses = ParseICS(icsF).parse()
+            student = Student(username, pwd, courses, faculty)
 
-    return exists
-
-
-def add_student(username: str, pwd: str, icsF: str, faculty: str):
-    courses = ParseICS(icsF).parse()
-    student = Student(username, pwd, courses, faculty)
-
-    if username_exists(username):
-        studentsCol.document(username).set(student.toDict())
+            self.__studentsCol.document(username).set(student.toDict())
 
 
 if __name__ == "__main__":
@@ -57,4 +56,4 @@ if __name__ == "__main__":
     pwd = input("Password )> ")
     faculty = input("Faculty code: ")
 
-    add_student(username, pwd, content, faculty)
+    FirebaseDB().add_student(username, pwd, content, faculty)

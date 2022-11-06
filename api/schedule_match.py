@@ -2,13 +2,13 @@ from models import Student
 
 
 def get_n_matches(student: Student, otherStudents: "list[Student]", n=5):
-    if student in otherStudents:
-        otherStudents.remove(student)
-
     possibleMatches = []
 
     studentCourses = student.courses
     for s in otherStudents:
+        if s.username == student.username:
+            continue
+
         matchNo = 0
 
         for course in s.courses:
