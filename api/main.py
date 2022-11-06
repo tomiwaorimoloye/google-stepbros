@@ -24,6 +24,8 @@ def new_student():
 
         fb.add_student(username, pwd, icsFile, faculty)
 
+        return "Success"
+
 
 @app.route("/api/v1/matches", methods=["GET"])
 def match_by_username():
