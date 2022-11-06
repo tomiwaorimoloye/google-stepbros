@@ -1,7 +1,7 @@
 body {
-    font-family: "Open Sans", sans-serif;
-    color: #1b1b1e;
-    background-color: #fbfffe;
+    font-family: "Montserrat";
+    color: #F8F7FF;
+    background-color: #9381FF;
 }
 
 #title {
@@ -102,7 +102,7 @@ section {
 }
 
 #logoimg {
-    width: 30%;
+    width: 100%;
 }
 
 /*--------------------------------------------------------------
@@ -148,8 +148,8 @@ hr {
 }
 
 button {
-    background-color: #04AA6D;
-    color: white;
+    background-color: #B8B8FF;
+    color: #1b1b1e;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
@@ -160,6 +160,7 @@ button {
 
 button:hover {
     opacity: 1;
+    background-color: white;
 }
 
 .cancelbtn {
@@ -197,8 +198,8 @@ button:hover {
 #upload {
     text-align: center;
     width: 30%;
-    height: 30%;
-    background-color: #728394;
+    background-color: #B8B8FF;
+    color: #1b1b1e;
     border-radius: 10px;
     margin: auto;
 }
@@ -215,4 +216,97 @@ button:hover {
 
 #sched {
     width: 30%;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 350px;
+    margin: auto;
+    text-align: center;
+    padding: 5%;
+}
+
+
+#profile {
+    text-align: center;
+    background-color: #FFD8BE;
+    color: #B8B8FF;
+}
+
+#caltitle {
+    text-align: center;
+}
+
+#my-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+}
+
+#resultcontainer {
+    display: flex;
+}
+
+#result {
+    background-color: #FFD8BE;
+    color: #B8B8FF;
+}
+
+#resultparas1 {
+    font-weight: bolder;
+    font-size: larger;
+}
+
+#resultparas2 {
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #9381FF;
+}
+
+/* Links inside the navbar */
+.navbar a {
+    float: right;
+    font-size: 16px;
+    color: #1b1b1e;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+    background-color: white;
+}
+
+#signuplink,
+#account {
+    text-decoration: none;
+}
+
+
+#tagline {
+    font-size: larger;
+    font-weight: 500;
+}
+
+
+#uofa {
+    width: 30%;
+}
+
+#abouttext {
+    padding-left: 10px;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#aboutcontainer {
+    justify-content: center;
 }

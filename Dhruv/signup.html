@@ -7,14 +7,29 @@
     <title>Sign Up</title>
     <link rel="icon" sizes="180x180" href="logohacked-removebg-preview (1).jpg">
     <link href="style.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 </head>
 
 <body>
     <header>
-        <h2>Create your account</h2>
-    </header>
+        <div class="navbar">
+            <a href="result.html">Match</a>
+            <a href="calender.html">Upload Calender</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="profile.html">Profile</a>
+        </div>
+        <div class="col-md-4" id="imgdiv">
+            <a href="index.html"><img id="logoimg" src="logohacked.png" class="img-fluid" alt=""></a>
+        </div>
+    </header><br>
+    <hr>
+
+    <p>
+    <h2 id="caltitle">Create Your Account</h2>
+    </p>
+
     <section id="form">
-        <form action="mailto:dhruvkairon@gmail.com" , method="post" , enctype="text/plain" , name="EmailForm">
+        <form action="output.txt" , method="post" , enctype="text/plain" , name="EmailForm">
             <div class="container">
                 <label for="email"><b>University Email</b></label><br>
                 <input type="text" placeholder="Enter Email" name="email" required><br>
@@ -57,7 +72,8 @@
 
                 <div class="clearfix">
                     <button id="resets" type="reset" class="cancelbtn">Cancel</button>
-                    <button id="signups" type="submit" class="signupbtn"><a href="calender.html">Sign Up</a></button>
+                    <button id="signups" type="submit" class="signupbtn"><a href="calender.html" id="account">Sign
+                            Up</a></button>
                 </div>
             </div>
 
