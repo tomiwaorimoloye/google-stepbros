@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="icon" sizes="180x180" href="logohacked-removebg-preview (1).jpg">
+    <link href="style.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <a href="result.html">Match</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="profile.html">Profile</a>
+        </div>
+        <div class="col-md-4" id="imgdiv">
+            <a href="index.html"><img id="logoimg" src="logohacked.png" class="img-fluid" alt=""></a>
+        </div>
+    </header><br>
+    <hr>
+
+    <p>
+    <h2 id="caltitle">Create Your Account</h2>
+    </p>
+
+    <section id="form">
+        <form action="output.txt" , method="post" , enctype="text/plain" , name="EmailForm">
+            <div class="container">
+
+                <label for="username"><b>Discord Username</b></label><br>
+                <input type="text" placeholder="Enter Username" name="username" required><br>
+
+                <label for="faculty"><b>Choose your Faculty:</b></label><br><br>
+                <select id="faculty" name="faculty" required>
+                    <option value="agriculture">Faculty of Agriculture, Life and Environmental Sciences</option>
+                    <option value="arts">Faculty of Arts</option>
+                    <option value="augustana">Augustana Faculty</option>
+                    <option value="business">Faculty of Business</option>
+                    <option value="education">Faculty of Education</option>
+                    <option value="eng">Faculty of Engineering</option>
+                    <option value="grad">Faculty of Graduate Studies and Research</option>
+                    <option value="law">Faculty of Law</option>
+                    <option value="medicine">Faculty of Medicine and Dentistry</option>
+                    <option value="native">Faculty of Native Studies</option>
+                    <option value="nursing">Faculty of Nursing</option>
+                    <option value="kin">Faculty of Kinesiology, Sport, and Recreation</option>
+                    <option value="pharmacy">Faculty of Pharmacy and Pharmaceutical Sciences</option>
+                    <option value="public-health">School of Public Health</option>
+                    <option value="rehab">Faculty of Rehabitilation Medicine</option>
+                    <option value="french">Faculté Saint-Jean</option>
+                    <option value="science">Faculty of Science</option>
+                    <option value="college">St Stephen's College</option>
+                </select><br><br>
+
+                <label for="psw"><b>Password</b></label><br>
+                <input type="password" placeholder="Enter Password" name="password" required><br>
+
+
+                <div class="container">
+                    <label for="file"><b>Upload your current calender from Beartracks</b></label><br><br>
+                    <input type="file" id="myFile" name="file"><br><br>
+                </div>
+
+                <p>By creating an account you agree to our Terms & Privacy.</p>
+
+                <div class="clearfix">
+                    <button id="resets" type="reset" class="cancelbtn">Cancel</button>
+                    <button id="signups" type="submit" class="signupbtn">Sign
+                        Up</button>
+                </div>
+            </div>
+
+        </form>
+    </section>
+</body>
