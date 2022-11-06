@@ -32,7 +32,10 @@ def new_student():
 
             if icsFile.filename != "":
                 try:
-                    fb.add_student(username, pwd, icsFile.read(), faculty)
+                    icsFile.save("temp.ics")
+                    icsFile.seek(0)
+                    fb.add_student(username, pwd, str(
+                        icsFile.read(), "utf-8"), faculty)
 
                     returnBody["data"] = "Success"
                 except:
