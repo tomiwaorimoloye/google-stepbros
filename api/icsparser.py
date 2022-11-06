@@ -13,8 +13,8 @@ class ParseICS:
 
     # Format -> Canada/Mountain:20220902T140000
     def __str_to_date(self, s: str):
-        t = s.split(":")[1].split("T")[1]
-        return datetime.strptime(t, "%H%M%S")
+        t = s.split(":")[1] + " MDT"
+        return datetime.strptime(t, "%Y%m%dT%H%M%S %Z")
 
     def parse(self) -> "list[Course]":
         courses = []
