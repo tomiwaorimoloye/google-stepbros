@@ -1,10 +1,11 @@
 import flask
 from flask import request, jsonify
+from flask_cors import CORS
 from schedule_match import get_n_matches
 from db import FirebaseDB
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+CORS(app)
 fb = FirebaseDB()
 
 
@@ -15,16 +16,31 @@ def home():
 
 @app.route("/api/v1/add", methods=["POST"])
 def new_student():
-    username = request.form.get("username", "username")
-    pwd = request.form.get("password", "pwd")
-    faculty = request.form.get("faculty", "Faculty of Unknown")
+    if request.method == "POST":
+        username = request.form.get("username", "username")
+        pwd = request.form.get("password", "pwd")
+        faculty = request.form.get("faculty", "Faculty of Unknown")
 
-    if "file" in request.files:
-        icsFile = request.files["file"]
+        returnBody = {
+            "username": username,
+            "password": pwd,
+            "faculty": faculty
+        }
 
-        fb.add_student(username, pwd, icsFile, faculty)
+        if "file" in request.files:
+            icsFile = request.files["file"]
 
-        return "Success"
+            if icsFile.filename != "":
+                try:
+                    fb.add_student(username, pwd, icsFile.read(), faculty)
+
+                    returnBody["data"] = "Success"
+                except:
+                    returnBody["data"] = "Couldn't access DB"
+
+        return returnBody
+
+    return "Stop trying to GET!"
 
 
 @app.route("/api/v1/matches", methods=["GET"])
@@ -40,4 +56,5 @@ def match_by_username():
     return jsonify([m.toDict() for m in matches])
 
 
-app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
