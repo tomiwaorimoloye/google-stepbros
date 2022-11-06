@@ -21,13 +21,17 @@ class CourseSchedule:
 
 
 class Course:
-    def __init__(self, summary: str, location, startTime, endTime, sch):
+    def __init__(self,
+                 summary: str,
+                 location: str,
+                 startTime: str, endTime: str,
+                 days: set):
         summary = summary.split()
 
         self.title = " ".join(summary[0:2])
         self.section = None
         self.location = location
-        self.sch = CourseSchedule(startTime, endTime, sch)
+        self.sch = CourseSchedule(startTime, endTime, days)
 
         if len(summary) > 2:
             self.section = " ".join(summary[2:])

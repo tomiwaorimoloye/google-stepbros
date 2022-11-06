@@ -1,5 +1,3 @@
-# Created by Obaloluwa Odelana 5/Nov/2022
-
 from os.path import isfile
 from models import Course
 
